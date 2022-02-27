@@ -1,8 +1,7 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Head from "next/head";
+import styles from "../styles/Home.module.css";
 
-export default function Home() {
+export default function Home({ data }) {
   return (
     <div className={styles.container}>
       <Head>
@@ -13,13 +12,20 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          List of <a>Movies</a>
         </h1>
 
         <p className={styles.description}>
-          Get started by editing{' '}
-          <code className={styles.code}>pages/index.js</code>
+          This project contains the basics usage of{" "}
+          <code className={styles.code}>Next.js</code> and{" "}
+          <code className={styles.code}>Prisma</code>{" "}
         </p>
+
+        <ul className="">
+          {data.map((item) => (
+            <li key={item.id}>{item.title}</li>
+          ))}
+        </ul>
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>
@@ -53,17 +59,30 @@ export default function Home() {
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
+        <a href="https://github.com/mhizta-mammut">
+          Create with ❤️ by{" "}
+          <span className={styles.authorName}> &nbsp;Hamisu Muhammad</span>
         </a>
       </footer>
     </div>
-  )
+  );
+}
+
+export async function getServerSideProps() {
+  const data = [
+    {
+      id: 1,
+      title: "title",
+    },
+    {
+      id: 2,
+      title: "another title",
+    },
+  ];
+
+  return {
+    props: {
+      data,
+    },
+  };
 }
